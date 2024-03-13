@@ -4,6 +4,13 @@ from.models import User, Feedback
 
 # Create your views here.
 
+
+def index(request):
+    if request.user.is_authenticated:
+        return render(request, "userpanel.html")
+    else:
+        return render(request, "index.html")
+        
 def user_register(request):
     if request.user.is_authenticated:
         # return redirect('home/profile/')
