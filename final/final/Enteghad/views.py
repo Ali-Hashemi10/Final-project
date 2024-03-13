@@ -4,6 +4,13 @@ from.models import User, Feedback
 
 # Create your views here.
 
+
+def index(request):
+    if request.user.is_authenticated:
+        return render(request, "userpanel.html")
+    else:
+        return render(request, "index.html")
+        
 def user_register(request):
     if request.user.is_authenticated:
         # return redirect('home/profile/')
@@ -26,8 +33,30 @@ def user_register(request):
         else:
             return render(request, "forms.html", {"form":RegisterForm})   
 
+
 def user_login():
-    pass
+    def user_login(request):
+    if request.user.is_authenticated:
+        pass
+       # return redirect(request, "user_panel.html")
+    else:
+        if request.method == "POST":
+            form = LoginForm(request.POST)
+            if form.is_valid():
+                user = authenticate(
+                    username = form.cleaned_data["username"],
+                    password = form.cleaned_data["password"]
+                )
+
+                if user:
+                    login(request, user)
+                    # return redirect(request, "user_panel.html")
+                else:
+                    return render(request, "forms.html", {"form": form})
+            else:
+                return render(request, "forms.html", {"form": form})
+        else:
+            return render(request, "forms.html", {"form": LoginForm})
 
 def user_logout():
     pass
