@@ -17,4 +17,4 @@ class LoginForm(forms.ModelForm):
 class FeedbackForm(forms.ModelForm):
     class Meta:
         model = Feedback
-        fields = ["first_name", "last_name", "movie", "descrption"]
+        fields = [ "movie", "descrption"]
