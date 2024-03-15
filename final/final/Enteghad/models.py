@@ -7,7 +7,11 @@ class Feedback(models.Model):
     first_name =  models.CharField(max_length= 255)
     last_name = models.CharField(max_length=255)
     movie = models.CharField(max_length=255)
-    desription = models.TextField
+    description = models.TextField()
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+
+
 
 
