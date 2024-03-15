@@ -1,1 +1,20 @@
-#user panel
+<h1>
+Hi {{ user }}
+</h1>
+<button type="button">
+   {% csrf_token %}
+     <a href="/Enteghad/home/profile/new-feedback/">
+        Post Feedback
+     </a>
+</button>
+<button type="button">
+     <a href="/Enteghad/home/profile/my-feedbacks">
+        My Feedbacks
+     </a>
+</button>
+<button type="button">
+     <a href="/Enteghad/home/logout/">
+        Log out
+     </a>
+</button>
+
