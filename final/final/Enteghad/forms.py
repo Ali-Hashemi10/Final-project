@@ -5,16 +5,19 @@ from .models import Feedback, User
 class RegisterForm(forms.ModelForm):
     class Meta:
         model = User
-        feilds = ["first_name", "last_name", "username", "email", "password" ]
+        fields = ["first_name", "last_name", "username", "email", "password" ]
 
 
 class LoginForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ["usermame", "password"]
+        fields = ["username", "password"]
 
 
 class FeedbackForm(forms.ModelForm):
     class Meta:
         model = Feedback
-        fields = ["first_name", "last_name", "movie", "descrption"]
+        fields = [ "movie", "description"]
+        
+        
+
