@@ -8,13 +8,14 @@ from .forms import RegisterForm, LoginForm, FeedbackForm
 
 def index(request):
     if request.user.is_authenticated:
-        return render(request, "userpanel.html")
+        return redirect("userpanel")
     else:
         return render(request, "index.html")
     
 
 def user_panel(request):
-    pass
+    user = request.user.username
+    return render(request, "userpanel.html", {"username":user})
 
 
 def user_register(request):
@@ -26,12 +27,13 @@ def user_register(request):
             form = RegisterForm(request.POST)
             if form.is_valid():
                 user = User.objects.create_user(
-                    first_name = form.cleaned_data['first_name'],
-                    last_name = form.cleaned_data['last_name'],
-                    username = form.cleaned_data['username'],
-                    email = form.cleaned_data['email'],
-                    password = form.cleaned_data['password']
+                    first_name=form.cleaned_data['first_name'],
+                    last_name=form.cleaned_data['last_name'],
+                    username=form.cleaned_data['username'],
+                    email=form.cleaned_data['email'],
+                    password=form.cleaned_data['password']
                 )
+        
                 login(request, user)
                 return redirect("userpanel")
             else:
@@ -47,10 +49,11 @@ def user_login(request):
             form = LoginForm(request.POST)
             if form.is_valid():
                 user = authenticate(
+                    request,
                     username = form.cleaned_data["username"],
                     password = form.cleaned_data["password"]
                 )
-
+    
                 if user:
                     login(request, user)
                     return redirect("userpanel")
@@ -69,14 +72,15 @@ def user_logout(request):
 def create_fb(request):
     if request.user.is_authenticated:
         if request.method == "POST":
-            user = User.object.get(id=request.user.id)
+            user = User.objects.get(id=request.user.id)
             form = FeedbackForm(request.POST)
             if form.is_valid():
                 feedback = Feedback.objects.create(
                     first_name = user.first_name,
                     last_name = user.last_name,
                     movie = form.cleaned_data["movie"],
-                    desription = form.cleaned_data["desciption"]
+                    description = form.cleaned_data["description"],
+                    creator = user
                 )
                 return redirect("userpanel") 
             else:
@@ -84,10 +88,10 @@ def create_fb(request):
         else:
             return render(request, "forms.html", {"form": FeedbackForm})
     else:
-        #alan age login nabashe asan nabayad in optiono dashte bashe ke betune create kone
-        pass
+        return redirect("login")
+      
 
-def user_fbs():
-    '''inja alan bayad user betune object cfb ro baraye 
-    khodesh zakhire kone va un bala tuye create bayad asssgn beshe be user fb ke sakhte mishe'''
-    pass
+def user_fbs(request):
+    feedbacks = Feedback.objects.filter(creator_id=request.user.id)
+    return render(request, "userfbs.html", {'objects':feedbacks})
+    

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+
 class Feedback(models.Model):
     first_name =  models.CharField(max_length= 255)
     last_name = models.CharField(max_length=255)
@@ -10,4 +11,6 @@ class Feedback(models.Model):
     description = models.TextField()
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def __str__(self) -> str:
+        return self.movie +":"+ "\n"+ self.description 
 
