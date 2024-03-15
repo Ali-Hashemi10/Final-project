@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from Enteghad import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("Enteghad", include=("Enteghad.urls")),
+    path("Enteghad/", include("Enteghad.urls")),
+    
 ]
