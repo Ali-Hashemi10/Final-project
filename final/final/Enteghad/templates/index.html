@@ -1,19 +1,17 @@
-{% extends "base_generic.html" %}
-
 {% block content %}
+{% csrf_token %}
     <h1>Quera Movie Library</h1>
     <p>Welcome to Qurea's movie library</p>
     <br>
-    <p>let's find you a movie</p>
+    <p>Let's find you a movie</p>
     <button type="button">
-     <a href="{% url 'Enteghad.user_register'%}">
-        Sign up
-     </a>
+        <a href="{% url 'user_register' %}">
+            Sign up
+        </a>
     </button>
     <button type="button">
-     <a href="{% url 'Enteghad.user_login'%}">
-        Login
-     </a>
+        <a href="{% url 'user_login' %}">
+            Login
+        </a>
     </button>
-
 {% endblock %}
