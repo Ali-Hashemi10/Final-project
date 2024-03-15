@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout
 from .models import User, Feedback
-from .forms import RegisterForm, LoginForm, FeedbackForm
+from .forms import RegisterForm, FeedbackForm
+from django.contrib.auth.forms import AuthenticationForm
+
 
 # Create your views here.
 
@@ -46,23 +48,16 @@ def user_login(request):
        return redirect("userpanel")
     else:
         if request.method == "POST":
-            form = LoginForm(request.POST)
+            form = AuthenticationForm(request, data=request.POST)  
             if form.is_valid():
-                user = authenticate(
-                    request,
-                    username = form.cleaned_data["username"],
-                    password = form.cleaned_data["password"]
-                )
-    
-                if user:
-                    login(request, user)
-                    return redirect("userpanel")
-                else:
-                    return render(request, "forms.html", {"form": form})
+                user = form.get_user()  
+                login(request, user)
+                return render(request, "userpanel.html")  
             else:
                 return render(request, "forms.html", {"form": form})
         else:
-            return render(request, "forms.html", {"form": LoginForm})
+            form = AuthenticationForm()  
+            return render(request, "forms.html", {"form": form})
 
 
 def user_logout(request):
