@@ -1,18 +1,29 @@
-<h1>
-Hi {{ user }}
-</h1>
-<button type="button">
-     <a href="/Enteghad/home/profile/new-feedback/">
-        Post Feedback
-     </a>
-</button>
-<button type="button">
-     <a href="/Enteghad/home/profile/my-feedbacks">
-        My Feedbacks
-     </a>
-</button>
-<button type="button">
-     <a href="/Enteghad/home/logout/">
-        Log out
-     </a>
-</button>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Panel</title>
+    <link rel="stylesheet" type="text/css" href="{% static '../static/userpanel.css' %}">
+</head>
+<body>
+   {% csrf_token %}
+    <div class="container">
+        <h1 class="welcome-heading">Hi {{ user }}</h1>
+        <div class="button-container">
+            <button class="action-button" type="button">
+                <a class = 'links' href="/Enteghad/home/profile/new-feedback/">Post Feedback</a>
+            </button>
+            <button class="action-button" type="button">
+                <a class = 'links' href="/Enteghad/home/profile/my-feedbacks">My Feedbacks</a>
+            </button>
+            <button class="logout-button" type="button">
+                <a class = 'links' href="/Enteghad/home/logout/">Log out</a>
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+
+
