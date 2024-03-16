@@ -1,0 +1,32 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url("movie2.jpg");
+    background-size: cover;
+}
+
+
+h2 {
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+
+ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+
+li {
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+}
+
+
+li:hover {
+    background-color: #e0e0e0;
+}
